@@ -20,7 +20,7 @@ def get_main_menu():
         [InlineKeyboardButton("🚀 Launch Dashboard", web_app=WebAppInfo(url=WEBAPP_URL))]
     ])
 
-@admin_bot.on_message(filters.command("start")) if admin_bot else None
+@admin_bot.on_message(filters.command("start"))
 async def start_cmd(client: Client, message: Message):
     db = SessionLocal()
     # Init settings if missing
@@ -36,7 +36,7 @@ async def start_cmd(client: Client, message: Message):
         reply_markup=get_main_menu()
     )
 
-@admin_bot.on_callback_query(filters.regex("^menu_dashboard$")) if admin_bot else None
+@admin_bot.on_callback_query(filters.regex("^menu_dashboard$"))
 async def cb_dashboard(client: Client, callback_query: CallbackQuery):
     db = SessionLocal()
     total_posts = db.query(Post).count()
@@ -60,14 +60,14 @@ async def cb_dashboard(client: Client, callback_query: CallbackQuery):
     )
     await callback_query.message.edit_text(text, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⬅️ Back", callback_data="main_menu")]]))
 
-@admin_bot.on_callback_query(filters.regex("^main_menu$")) if admin_bot else None
+@admin_bot.on_callback_query(filters.regex("^main_menu$"))
 async def cb_main_menu(client: Client, callback_query: CallbackQuery):
     await callback_query.message.edit_text(
         "👋 **Welcome back to the AI Content Agent**\n\nChoose an option below:",
         reply_markup=get_main_menu()
     )
 
-@admin_bot.on_callback_query(filters.regex("^menu_settings$")) if admin_bot else None
+@admin_bot.on_callback_query(filters.regex("^menu_settings$"))
 async def cb_settings(client: Client, callback_query: CallbackQuery):
     db = SessionLocal()
     settings = db.query(Settings).first()
@@ -83,7 +83,7 @@ async def cb_settings(client: Client, callback_query: CallbackQuery):
     )
     await callback_query.message.edit_text(text, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⬅️ Back", callback_data="main_menu")]]))
 
-@admin_bot.on_callback_query(filters.regex("^menu_channels$")) if admin_bot else None
+@admin_bot.on_callback_query(filters.regex("^menu_channels$"))
 async def cb_channels(client: Client, callback_query: CallbackQuery):
     db = SessionLocal()
     channels = db.query(SourceChannel).all()
@@ -97,7 +97,7 @@ async def cb_channels(client: Client, callback_query: CallbackQuery):
     text += "\nTo add a channel, send `/addchannel <id> <name>`"
     await callback_query.message.edit_text(text, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⬅️ Back", callback_data="main_menu")]]))
 
-@admin_bot.on_message(filters.command("addchannel")) if admin_bot else None
+@admin_bot.on_message(filters.command("addchannel"))
 async def add_channel_cmd(client: Client, message: Message):
     parts = message.text.split(maxsplit=2)
     if len(parts) < 3:
@@ -114,7 +114,7 @@ async def add_channel_cmd(client: Client, message: Message):
         await message.reply_text(f"Added {name} (`{ch_id}`) to active monitor!")
     db.close()
 
-@admin_bot.on_callback_query(filters.regex("^menu_drafts$")) if admin_bot else None
+@admin_bot.on_callback_query(filters.regex("^menu_drafts$"))
 async def cb_drafts(client: Client, callback_query: CallbackQuery):
     db = SessionLocal()
     post = db.query(Post).filter(Post.status == "pending").first()
@@ -152,7 +152,7 @@ async def render_draft(message: Message, post: Post):
         await message.reply_text(text, reply_markup=markup, disable_web_page_preview=True)
 
 
-@admin_bot.on_callback_query(filters.regex(r"^draft_(approve|reject)_(\d+)$")) if admin_bot else None
+@admin_bot.on_callback_query(filters.regex(r"^draft_(approve|reject)_(\d+)$"))
 async def handle_draft_action(client: Client, callback_query: CallbackQuery):
     action = callback_query.matches[0].group(1)
     post_id = int(callback_query.matches[0].group(2))
