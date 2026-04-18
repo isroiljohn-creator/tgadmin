@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Agent Dashboard</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="glass-header">
+            <h1 id="title">Content Agent</h1>
+            <p id="subtitle" class="subtitle">AI Monitor Dashboard</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="glass-nav">
+            <button class="nav-btn active" data-target="dashboard">Dashboard</button>
+            <button class="nav-btn" data-target="drafts">Review Drafts <span id="draft-badge" class="badge hidden">0</span></button>
+            <button class="nav-btn" data-target="settings">Settings</button>
+        </nav>
+
+        <!-- Views -->
+        <main class="views">
+            <!-- Dashboard View -->
+            <section id="dashboard" class="view active">
+                <div class="stats-grid">
+                    <div class="stat-card spark-blue">
+                        <span class="stat-icon">📊</span>
+                        <h3 id="stat-processed">0</h3>
+                        <p>Total Processed</p>
+                    </div>
+                    <div class="stat-card spark-orange">
+                        <span class="stat-icon">📝</span>
+                        <h3 id="stat-pending">0</h3>
+                        <p>Pending Review</p>
+                    </div>
+                    <div class="stat-card spark-green">
+                        <span class="stat-icon">✅</span>
+                        <h3 id="stat-published">0</h3>
+                        <p>Published</p>
+                    </div>
+                    <div class="stat-card spark-red">
+                        <span class="stat-icon">🚫</span>
+                        <h3 id="stat-rejected">0</h3>
+                        <p>Rejected</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Drafts View -->
+            <section id="drafts" class="view hidden">
+                <div id="draft-container" class="draft-container flex-col">
+                    <div class="empty-state">
+                        <span>🎉</span>
+                        <p>No pending drafts!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings View -->
+            <section id="settings" class="view hidden">
+                <div class="settings-card glass-panel">
+                    <h2 class="section-title">AI Settings</h2>
+                    
+                    <div class="input-group">
+                        <label>Target Channel ID</label>
+                        <input type="text" id="set-target" placeholder="e.g. -10012345678" />
+                    </div>
+
+                    <div class="input-group">
+                        <label>Brand Tone / Style</label>
+                        <textarea id="set-tone" rows="3" placeholder="Professional, engaging..."></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Post Mode</label>
+                        <select id="set-mode">
+                            <option value="Draft">Draft Only</option>
+                            <option value="Semi-Automatic">Semi-Automatic</option>
+                            <option value="Automatic">Full Automatic</option>
+                        </select>
+                    </div>
+                    
+                    <button id="save-settings" class="btn-primary mt-4">Save Configuration</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

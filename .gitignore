@@ -1,0 +1,11 @@
+venv/
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.sqlite
+*.db
+
+# Pyrogram session files
+*.session
+*.session-journal

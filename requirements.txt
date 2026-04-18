@@ -1,0 +1,6 @@
+pyrogram==2.0.106
+tgcrypto==1.2.5
+SQLAlchemy==2.0.28
+apscheduler==3.10.4
+google-generativeai==0.4.0
+python-dotenv==1.0.1
