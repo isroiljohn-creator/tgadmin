@@ -20,6 +20,11 @@ def get_main_menu():
         [InlineKeyboardButton("🚀 Launch Dashboard", web_app=WebAppInfo(url=WEBAPP_URL))]
     ])
 
+@admin_bot.on_message()
+async def debug_print(client, message):
+    print(f"MESSAGE RECEIVED: {message.text}")
+    message.continue_propagation()
+
 @admin_bot.on_message(filters.command("start"))
 async def start_cmd(client: Client, message: Message):
     db = SessionLocal()
