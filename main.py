@@ -17,7 +17,7 @@ async def start_webserver():
     from webapp.api import app
     import os
     port = int(os.getenv("PORT", 8000))
-    config = uvicorn.Config(app, host="0.0.0.0", port=port, log_level="info")
+    config = uvicorn.Config(app, host="0.0.0.0", port=port, log_level="info", handle_signals=False)
     server = uvicorn.Server(config)
     print(f"Starting Web Server on port {port}...")
     await server.serve()

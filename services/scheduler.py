@@ -49,7 +49,8 @@ def start_scheduler(admin_bot: Client, apscheduler):
     # to only publish if `last_publish_time > frequency`.
     
     apscheduler.add_job(
-        func=lambda: asyncio.create_task(publish_queued_posts(admin_bot)),
+        func=publish_queued_posts,
+        args=[admin_bot],
         trigger=IntervalTrigger(minutes=1),
         id='publish_job',
         name='Publish Queued Posts',
