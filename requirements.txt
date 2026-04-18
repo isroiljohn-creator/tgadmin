@@ -4,3 +4,5 @@ SQLAlchemy>=2.0.35
 apscheduler==3.10.4
 google-generativeai==0.4.0
 python-dotenv==1.0.1
+fastapi
+uvicorn
